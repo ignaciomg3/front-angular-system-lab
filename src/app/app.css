@@ -80,6 +80,9 @@
   transition: all 0.2s ease;
   text-transform: uppercase;
   letter-spacing: 0.025em;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
 .btn-primary:hover {
