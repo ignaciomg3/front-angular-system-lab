@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Analisis } from '../models/analisis.interface';
 
 @Injectable({
@@ -15,7 +16,10 @@ export class AnalisisService {
    * Obtiene todos los análisis
    */
   getAnalisis(): Observable<Analisis[]> {
-    return this.http.get<Analisis[]>(`${this.API_URL}/analisis`);
+    return this.http.get<{success: boolean, count: number, data: Analisis[]}>(`${this.API_URL}/analisis`)
+      .pipe(
+        map(response => response.data)
+      );
   }
 
   /**

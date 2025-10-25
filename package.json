@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-  "start": "ng serve --port 4201",
+    "start": "ng serve --port 4201 --live-reload --watch",
+    "start:polling": "ng serve --port 4201 --poll 1000",
+    "start:nodemon": "nodemon --exec \"ng serve --port 4201\" --ext ts,html,css,scss --ignore dist/ --ignore node_modules/",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -43,6 +45,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "nodemon": "^3.1.10",
     "typescript": "~5.9.2"
   }
 }
