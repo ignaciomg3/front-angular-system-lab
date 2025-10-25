@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<main class="main-content">
+  <div class="welcome-section">
+    <h1>Bienvenido al {{ title() }}</h1>
+    <p>Sistema de gestión y análisis de laboratorio</p>
+    
+    <div class="quick-actions">
+      <div class="action-card">
+        <h3>Muestras</h3>
+        <p>Registra y gestiona muestras de laboratorio</p>
+        <button type="button" class="btn-primary">Gestionar Muestras</button>
+      </div>
+      
+      <div class="action-card">
+        <h3>Análisis</h3>
+        <p>Ejecuta y supervisa análisis en curso</p>
+        <button type="button" class="btn-primary">Ver Análisis</button>
+      </div>
+      
+      <div class="action-card">
+        <h3>Resultados</h3>
+        <p>Consulta resultados y generar reportes</p>
+        <button type="button" class="btn-primary">Ver Resultados</button>
+      </div>
+      
+      <div class="action-card">
+        <h3>Dashboard</h3>
+        <p>Panel de control y estadísticas</p>
+        <button type="button" class="btn-primary">Ver Dashboard</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<router-outlet />
