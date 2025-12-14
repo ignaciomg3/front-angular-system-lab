@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="header">
+    <h1>Gestión de Muestras</h1>
+    <p class="subtitle">Visualiza y administra todas las muestras registradas</p>
+  </div>
+
+  <div class="actions-bar">
+    <button 
+      class="btn-reload" 
+      (click)="recargar()"
+      [disabled]="loading"
+      aria-label="Recargar muestras">
+      🔄 Recargar
+    </button>
+    <div class="info-badge">
+      Total: {{ muestras.length }} {{ muestras.length === 1 ? 'muestra' : 'muestras' }}
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando muestras...</p>
+  </div>
+
+  <div *ngIf="error && !loading" class="error-message">
+    <span class="error-icon">⚠️</span>
+    <div>
+      <strong>Error</strong>
+      <p>{{ error }}</p>
+    </div>
+    <button class="btn-retry" (click)="recargar()">Reintentar</button>
+  </div>
+
+  <div *ngIf="!loading && !error && muestras.length === 0" class="empty-state">
+    <span class="empty-icon">📋</span>
+    <h2>No hay muestras registradas</h2>
+    <p>Aún no se han registrado muestras en el sistema</p>
+  </div>
+
+  <div *ngIf="!loading && !error && muestras.length > 0" class="muestras-grid">
+    <div 
+      *ngFor="let muestra of muestras; trackBy: trackByMuestra" 
+      class="muestra-card">
+      <div class="card-header">
+        <h3>{{ muestra.muestra_nombre }}</h3>
+        <span class="badge badge-protocolo">
+          Protocolo: {{ getProtocolo(muestra) }}
+        </span>
+      </div>
+      
+      <div class="card-body">
+        <div class="info-row">
+          <span class="label">N° Informe:</span>
+          <span class="value">#{{ muestra.nro_informe }}</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="label">N° Muestra:</span>
+          <span class="value">{{ muestra.nro_muestra }}</span>
+        </div>
+        
+        <div *ngIf="muestra.parametros" class="parametros-section">
+          <h4 class="parametros-title">Parámetros:</h4>
+          <div class="parametros-grid">
+            <div *ngFor="let key of getParametrosKeys(muestra.parametros)" class="parametro-item">
+              <span class="parametro-key">{{ formatParametroKey(key) }}:</span>
+              <span class="parametro-value">
+                <ng-container *ngIf="muestra.parametros[key]?.valor !== undefined; else simpleValue">
+                  {{ muestra.parametros[key].unidad }}
+                </ng-container>
+                <ng-template #simpleValue>
+                  {{ muestra.parametros[key] }}
+                </ng-template>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
